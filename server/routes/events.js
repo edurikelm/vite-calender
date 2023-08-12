@@ -13,7 +13,9 @@ const { isDate } = require('../helpers/isDate');
 
 const router = Router();
 
-router.get(
+router.get('/', validarJWT, getEventos);
+
+router.post(
   '/',
   validarJWT,
   [
@@ -22,9 +24,8 @@ router.get(
     check('end', 'Fecha de termino es obligatorio').custom(isDate),
     validarCampos,
   ],
-  getEventos
+  crearEvento
 );
-router.post('/', validarJWT, crearEvento);
 router.put('/:id', validarJWT, actualizarEvento);
 router.delete('/:id', validarJWT, eliminarEvento);
 
